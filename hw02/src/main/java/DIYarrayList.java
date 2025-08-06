@@ -13,8 +13,8 @@ public class DIYarrayList <T> implements List <T> {
         if(initialCapacity > 0) {
             this.data = new Object[initialCapacity];
         } else if (initialCapacity == 0) {
-        this.data = new Object[]{};
-        }else {
+            this.data = new Object[10];
+        } else {
             throw new IllegalArgumentException("Illegal capacity: " + initialCapacity);
         }
     }
@@ -56,7 +56,7 @@ public class DIYarrayList <T> implements List <T> {
     }
 
     @Override
-    public Iterator iterator() {
+    public Iterator<T> iterator() {
         return new Itr();
     }
 
@@ -68,13 +68,13 @@ public class DIYarrayList <T> implements List <T> {
 
     @Override
     public boolean add(T e) {
-        if ((size + 1) - data.length > 0) {
-            grow();
-        }
+        ensureCapacity(size + 1);
         data[size++] = e;
         return true;
     }
-
+    private void ensureCapacity(int minCapacity) {
+        if (minCapacity - data.length > 0) grow();
+    }
 
     @Override
     public boolean remove(Object o) {
@@ -96,7 +96,7 @@ public class DIYarrayList <T> implements List <T> {
 
     @Override
     public T get(int index) {
-        if (index < 0 || index >= data.length)
+        if (index < 0 || index >= size)
             throw new IndexOutOfBoundsException();
         return (T) data[index];
     }
@@ -111,12 +111,17 @@ public class DIYarrayList <T> implements List <T> {
 
     @Override
     public void add(int index, T element) {
-        if (size == data.length) {
-            grow();
-        }
+        ensureCapacity(size + 1);
+        checkIndex(index);
         System.arraycopy(data, index, data, index + 1, size - index);
         data[index] = element;
         size++;
+    }
+
+    private void checkIndex(int index) {
+        if (index > size || index < 0) {
+            throw new IndexOutOfBoundsException();
+        }
     }
 
     private void grow() {
@@ -238,17 +243,18 @@ public class DIYarrayList <T> implements List <T> {
 
 
     @Override
-    public ListIterator listIterator() {
+    public ListIterator<T> listIterator() {
         return new ListItr(0);
     }
 
     @Override
-    public ListIterator listIterator(int index) {
+    public ListIterator<T> listIterator(int index) {
+        checkIndex(index);
         return new ListItr(index);
     }
 
     @Override
-    public List subList(int fromIndex, int toIndex) {
+    public List<T> subList(int fromIndex, int toIndex) {
         throw new UnsupportedOperationException();
     }
 
