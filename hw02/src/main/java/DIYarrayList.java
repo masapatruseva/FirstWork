@@ -13,7 +13,7 @@ public class DIYarrayList <T> implements List <T> {
         if(initialCapacity > 0) {
             this.data = new Object[initialCapacity];
         } else if (initialCapacity == 0) {
-            this.data = new Object[10];
+            this.data = new Object[DEFAULT_CAPACITY];
         } else {
             throw new IllegalArgumentException("Illegal capacity: " + initialCapacity);
         }
@@ -111,8 +111,8 @@ public class DIYarrayList <T> implements List <T> {
 
     @Override
     public void add(int index, T element) {
-        ensureCapacity(size + 1);
         checkIndex(index);
+        ensureCapacity(size + 1);
         System.arraycopy(data, index, data, index + 1, size - index);
         data[index] = element;
         size++;
