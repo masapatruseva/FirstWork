@@ -6,33 +6,37 @@ import java.util.ListIterator;
 public class DIYarrayList <T> implements List <T> {
     private static final int DEFAULT_CAPACITY = 10;
     private int size;
-    private Object[] data;
+    private T[] data;
 
 
     public DIYarrayList(int initialCapacity) {
         if(initialCapacity > 0) {
-            this.data = new Object[initialCapacity];
+            this.data = (T[]) new Object[initialCapacity];
         } else if (initialCapacity == 0) {
-            this.data = new Object[DEFAULT_CAPACITY];
+            this.data = (T[]) new Object[DEFAULT_CAPACITY];
         } else {
             throw new IllegalArgumentException("Illegal capacity: " + initialCapacity);
         }
     }
 
     public DIYarrayList() {
-        this.data = new Object[DEFAULT_CAPACITY];
+        this.data = (T[]) new Object[DEFAULT_CAPACITY];
     }
 
     @Override
     public String toString() {
+        if (data == null)
+            return "null";
+
+        int iMax = data.length - 1;
+        if (iMax == -1)
+            return "[]";
+
         StringBuilder sb = new StringBuilder();
-        sb.append("[");
-        for (int i = 0; i < size(); i++) {
-            T element = get(i);
-            if (element != null) {
-                sb.append(element);
-            }
-            if (i < size() - 1) {
+        sb.append('[');
+        for (int i = 0; i < size; i++) {
+            sb.append(data[i]);
+            if (i < size - 1) {
                 sb.append(", ");
             }
         }
@@ -82,12 +86,12 @@ public class DIYarrayList <T> implements List <T> {
     }
 
     @Override
-    public boolean addAll(Collection c) {
+    public boolean addAll(Collection <? extends T> c) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public boolean addAll(int index, Collection c) {
+    public boolean addAll(int index, Collection <? extends T> c) {
         throw new UnsupportedOperationException();
     }
 
@@ -96,15 +100,16 @@ public class DIYarrayList <T> implements List <T> {
 
     @Override
     public T get(int index) {
+        checkIndex(index);
         if (index < 0 || index >= size)
             throw new IndexOutOfBoundsException();
-        return (T) data[index];
+        return data[index];
     }
 
     @Override
     public T set(int index, T element) {
-        Objects.checkIndex(index, size);
-        T oldValue = (T) data[index];
+        checkIndex(index);
+        T oldValue = data[index];
         data[index] = element;
         return oldValue;
     }
@@ -132,9 +137,9 @@ public class DIYarrayList <T> implements List <T> {
 
     @Override
     public T remove(int index) {
-        Objects.checkIndex(index, size);
+        checkIndex(index);
         final Object[] es = data;
-        T oldValue = (T) data[index];
+        T oldValue = data[index];
 
         final int newSize;
         if ((newSize = size - 1) > index)
@@ -169,7 +174,7 @@ public class DIYarrayList <T> implements List <T> {
                 throw new NoSuchElementException();
             }
             last = cursor;
-            return (T) data[cursor++];
+            return data[cursor++];
         }
 
         @Override
@@ -204,7 +209,7 @@ public class DIYarrayList <T> implements List <T> {
                 throw new NoSuchElementException();
             }
             last = --cursor;
-            return (T) data[last];
+            return data[last];
         }
 
         @Override
