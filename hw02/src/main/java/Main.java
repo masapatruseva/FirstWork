@@ -15,7 +15,7 @@ public class Main {
         System.out.println("list1: " + list1);
         System.out.println("list2: " + list2);
 
-        Collections.addAll(list1, 26, 27, 28, 29, 30);
+        Collections.addAll(list1, 26, 27, 28, 29, 31);
         System.out.println("После addAll: ");
         System.out.println(list1);
 
