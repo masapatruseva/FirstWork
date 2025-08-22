@@ -32,7 +32,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>Main</mainClass>
+                            <mainClass>testframework.myarraylist.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
