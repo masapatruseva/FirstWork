@@ -8,7 +8,7 @@ public class DIYArrayListTest {
     private DIYarrayList<Integer> list;
     private void assertEquals(int a, int b) {
         if ( a != b) {
-            throw new AssertionError("Ожидалось " + a + ", а вышло" + b);
+            throw new AssertionError("Ожидалось " + a + ", а вышло " + b);
         }
     }
     @Before
