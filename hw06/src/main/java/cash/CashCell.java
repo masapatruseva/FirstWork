@@ -16,6 +16,8 @@ public class CashCell {
     public void withdraw(int count) {
         if(this.count >= count) {
             this.count -=count;
+        } else {
+            throw new IllegalArgumentException("Не хватает купюр в ячейке");
         }
     }
 

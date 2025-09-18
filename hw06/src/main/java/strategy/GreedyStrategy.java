@@ -14,14 +14,12 @@ public class GreedyStrategy implements DispenseStrategy {
         Map<Cash, Integer> issuedCash = new HashMap<>();
         int remainder = amount;
 
-        for (Cash c : Arrays.stream(Cash.values())
+        for (Cash c : cells.keySet().stream()
                 .sorted((c1, c2) -> Integer.compare(c2.getValue(), c1.getValue()))
                 .collect(Collectors.toList())) {
 
             CashCell cell = cells.get(c);
             int need = remainder / c.getValue();
-
-            if (cell == null) continue;
 
             if((cell.getCount() >= need) && !(need == 0)) {
                 issuedCash.put(cell.getCash(), need);
