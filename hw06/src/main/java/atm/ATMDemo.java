@@ -1,10 +1,13 @@
 package atm;
 
 import cash.Cash;
+import strategy.GreedyStrategy;
+
+import java.util.List;
 
 public class ATMDemo {
     public static void main(String[] args) {
-        ATM atm = new ATM();
+        ATM atm = new ATM(List.of(Cash.FIVE_THOUSAND, Cash.ONE_THOUSAND, Cash.ONE_HUNDRED, Cash.FIVE_HUNDRED), new GreedyStrategy());
 
         atm.getBalance();
 
@@ -14,11 +17,11 @@ public class ATMDemo {
         atm.addCash(Cash.ONE_THOUSAND, 1);
         atm.addCash(Cash.FIVE_THOUSAND,2);
 
-        atm.getBalance();
+        System.out.println("Баланс: " + atm.getBalance());
 
-        System.out.println("Снимаем 610 рублей");
-        atm.withgrow(6100);
+        System.out.println("Снимаем 6100");
+        atm.withdraw(6100);
 
-        atm.getBalance();
+        System.out.println("Баланс: " + atm.getBalance());
     }
 }
