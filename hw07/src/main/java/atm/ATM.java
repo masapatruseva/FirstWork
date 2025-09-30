@@ -32,7 +32,7 @@ public class ATM implements Handler {
         this.strategy = strategy;
         this.name = name;
         save();
-        notifyObserver();
+
     }
 
     public String getName() {
@@ -43,7 +43,7 @@ public class ATM implements Handler {
         observers.add(obs);
     }
 
-    private void notifyObserver() {
+    public void notifyObserver() {
         int balance = this.getBalance();
         observers.forEach(o -> o.balanceHasChange(this, balance));
     }
@@ -68,6 +68,7 @@ public class ATM implements Handler {
 
     public void restore() {
         saved.getSaved().forEach((c, cnt) -> cells.get(c).setCount(cnt));
+        notifyObserver();
     }
 
 

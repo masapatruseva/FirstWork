@@ -37,6 +37,7 @@ public class ATMDepartment implements Observer {
 
     public void addATM(ATM atm) {
         atm.addObserver(this);
+        atm.notifyObserver();
         if(!atms.isEmpty()) {
             atms.get(atms.size() - 1).setNext(atm);
         }
