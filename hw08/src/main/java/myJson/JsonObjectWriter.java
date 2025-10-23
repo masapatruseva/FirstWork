@@ -74,7 +74,9 @@ public class JsonObjectWriter {
                 Object value = field.get(obj);
                 builder.add(field.getName(), toJsonValue(value));
             } catch (Exception e) {
-                e.printStackTrace();
+                throw new RuntimeException(
+                        "Ошибка сериализации поля " + field.getName() +
+                                " в классе " + clazz.getSimpleName(), e);
             }
         }
         return builder.build();

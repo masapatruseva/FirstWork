@@ -1,4 +1,4 @@
-package Demonstration;
+package demonstration;
 
 import cattery.Cat;
 import cattery.Cattery;
