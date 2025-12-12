@@ -21,7 +21,7 @@ public class Account {
     public void setNo(Long no) { this.no = no; }
     public String getType() { return type; }
     public void setType(String type) { this.type = type; }
-    public Number getRest() { return rest; }
+    public BigDecimal getRest() { return rest; }
     public void setRest(BigDecimal rest) { this.rest = rest; }
 
     @Override
